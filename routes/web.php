@@ -12,6 +12,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\GeneralInfoController;
 
 Route::get('/', function () {
     return view('frontend.home');
@@ -48,8 +49,6 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->name('admin.')
     Route::get('social_media/data', [SocialMediaController::class, 'show'])->name('social_media.data');
     Route::get('projects/data', [ProjectController::class, 'show'])->name('projects.data');
 
-
-
     // Add the Delete routes for DataTables
     Route::get('services/{id}/delete', [ServiceController::class, 'destroy'])->name('services.delete');
     Route::get('counters/{id}/delete', [CounterController::class, 'destroy'])->name('counters.delete');
@@ -65,6 +64,10 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('admin')->name('admin.')
 
     // Add route to handle image removal
     Route::delete('projects/remove-image/{id}', [ProjectController::class, 'removeImage'])->name('projects.remove-image');
+
+    // Add routes for General Information
+    Route::get('general-info', [GeneralInfoController::class, 'index'])->name('general_info.index');
+    Route::put('general-info', [GeneralInfoController::class, 'update'])->name('general_info.update');
 });
 
 Route::middleware([
